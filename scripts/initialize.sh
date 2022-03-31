@@ -1,5 +1,5 @@
 #!/bin/bash
-cd /home/ubuntu/shinstarr-app-server-deploy
+cd /home/ubuntu/shinstarr-app-server
 npm install
 npm install pm2@latest -g
 sudo apt-get update
