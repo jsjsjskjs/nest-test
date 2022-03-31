@@ -14,7 +14,7 @@ async function bootstrap() {
         origin: true,
         credentials: true
     });
-    app.use(expressBasicAuth({
+    app.use(['/api', '/api-json'], expressBasicAuth({
         challenge: true,
         users: {
             [process.env.SWAGGER_USER]: process.env.SWAGGER_PASSWORD
