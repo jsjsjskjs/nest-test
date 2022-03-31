@@ -14,6 +14,12 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.DriverController = void 0;
 const common_1 = require("@nestjs/common");
+const swagger_1 = require("@nestjs/swagger");
+const confilct_409_dto_1 = require("../common/response/swegger/confilct.409.dto");
+const created_201_dto_1 = require("../common/response/swegger/created.201.dto");
+const driver_signin_ok_200_dto_1 = require("../common/response/swegger/driver.signin.ok.200.dto");
+const driver_unauthorized_401_dto_1 = require("../common/response/swegger/driver.unauthorized.401.dto");
+const unprocessable_422_dto_1 = require("../common/response/swegger/unprocessable.422.dto");
 const driver_service_1 = require("./driver.service");
 const signin_driver_dto_1 = require("./dto/signin-driver.dto");
 const signup_driver_dto_1 = require("./dto/signup-driver.dto");
@@ -29,6 +35,14 @@ let DriverController = class DriverController {
     }
 };
 __decorate([
+    (0, swagger_1.ApiOperation)({ summary: '드라이버 회원가입' }),
+    (0, swagger_1.ApiResponse)({ status: 201, description: '201 Created', type: created_201_dto_1.CreatedDto }),
+    (0, swagger_1.ApiResponse)({ status: 409, description: '409 Conflict', type: confilct_409_dto_1.ConflictDto }),
+    (0, swagger_1.ApiResponse)({
+        status: 422,
+        description: '422 Unprocessable Entity',
+        type: unprocessable_422_dto_1.UnprocessableDto
+    }),
     (0, common_1.Post)('signup'),
     __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
@@ -36,6 +50,13 @@ __decorate([
     __metadata("design:returntype", void 0)
 ], DriverController.prototype, "signupDriver", null);
 __decorate([
+    (0, swagger_1.ApiOperation)({ summary: '드라이버 로그인' }),
+    (0, swagger_1.ApiResponse)({ status: 200, description: '200 OK', type: driver_signin_ok_200_dto_1.DriverSigninOkDto }),
+    (0, swagger_1.ApiResponse)({
+        status: 401,
+        description: '401 Unauthorized',
+        type: driver_unauthorized_401_dto_1.DriverUnauthorizedDto
+    }),
     (0, common_1.Post)('signin'),
     __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),

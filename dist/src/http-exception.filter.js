@@ -8,6 +8,9 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.HttpExceptionFilter = void 0;
 const common_1 = require("@nestjs/common");
+const UnprocessableRes = require("./common/response/unprocessable.422");
+const NotFoundRes = require("./common/response/not-found.404");
+const UnauthorizedJwtRes = require("./common/response/unauthorized.jwt.401");
 let HttpExceptionFilter = class HttpExceptionFilter {
     catch(exception, host) {
         const ctx = host.switchToHttp();
@@ -15,31 +18,13 @@ let HttpExceptionFilter = class HttpExceptionFilter {
         const status = exception.getStatus();
         const err = exception.getResponse();
         if (typeof err !== 'string' && err.statusCode === 400) {
-            return response.status(422).send({
-                message: 'error',
-                errCode: 422,
-                data: {
-                    errMsg: '필요한 정보가 모두 또는 올바르게 입력되지 않음'
-                }
-            });
+            return response.status(422).send(UnprocessableRes);
         }
         else if (err.statusCode === 404) {
-            return response.status(404).send({
-                message: 'error',
-                errCode: 404,
-                data: {
-                    errMsg: '페이지가 존재하지 않습니다'
-                }
-            });
+            return response.status(404).send(NotFoundRes);
         }
         else if (err.statusCode === 401) {
-            return response.status(401).send({
-                message: 'error',
-                errCode: 401,
-                data: {
-                    errMsg: '인증정보가 만료됐습니다'
-                }
-            });
+            return response.status(401).send(UnauthorizedJwtRes);
         }
         response.status(status).json(err);
     }

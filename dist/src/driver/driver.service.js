@@ -19,6 +19,8 @@ const Driver_1 = require("../entities/Driver");
 const typeorm_2 = require("typeorm");
 const bcrypt = require("bcryptjs");
 const auth_service_1 = require("../auth/auth.service");
+const ConflictRes = require("../common/response/conflict.409");
+const CreatedRes = require("../common/response/created.201");
 let DriverService = class DriverService {
     constructor(driverRepository, authService) {
         this.driverRepository = driverRepository;
@@ -51,13 +53,7 @@ let DriverService = class DriverService {
         console.log('check!!!!!', driver);
         this.logger.debug(`드라이버 사용자 확인: ${driver}`);
         if (driver) {
-            throw new common_1.ConflictException({
-                message: 'error',
-                errCode: 409,
-                data: {
-                    errMsg: '동일한 아이디가 존재합니다'
-                }
-            });
+            throw new common_1.ConflictException(ConflictRes);
         }
         else {
             const encrypedPW = await bcrypt.hashSync(driverPassword, 10);
@@ -68,10 +64,7 @@ let DriverService = class DriverService {
                 driver_phone: driverPhone,
                 driver_email: driverEmail
             }));
-            return {
-                message: 'ok',
-                code: 201
-            };
+            return CreatedRes;
         }
     }
     async signinDriver(driverName, driverPassword) {

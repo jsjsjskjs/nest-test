@@ -10,32 +10,58 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.SignupDriverDto = void 0;
+const swagger_1 = require("@nestjs/swagger");
 const class_validator_1 = require("class-validator");
 class SignupDriverDto {
 }
 __decorate([
     (0, class_validator_1.IsString)(),
     (0, class_validator_1.IsNotEmpty)(),
+    (0, swagger_1.ApiProperty)({
+        example: 'jsjsjskjs',
+        description: '드라이버 아이디',
+        required: true
+    }),
     __metadata("design:type", String)
 ], SignupDriverDto.prototype, "driverName", void 0);
 __decorate([
     (0, class_validator_1.IsString)(),
     (0, class_validator_1.IsNotEmpty)(),
+    (0, swagger_1.ApiProperty)({
+        example: '1234',
+        description: '드라이버 비밀번호',
+        required: true
+    }),
     __metadata("design:type", String)
 ], SignupDriverDto.prototype, "driverPassword", void 0);
 __decorate([
     (0, class_validator_1.IsString)(),
     (0, class_validator_1.IsNotEmpty)(),
+    (0, swagger_1.ApiProperty)({
+        example: '1234',
+        description: '드라이버 이름',
+        required: true
+    }),
     __metadata("design:type", String)
 ], SignupDriverDto.prototype, "driverIdentity", void 0);
 __decorate([
     (0, class_validator_1.IsString)(),
     (0, class_validator_1.IsNotEmpty)(),
+    (0, swagger_1.ApiProperty)({
+        example: '010-1234-1234',
+        description: '드라이버 핸드폰',
+        required: true
+    }),
     __metadata("design:type", String)
 ], SignupDriverDto.prototype, "driverPhone", void 0);
 __decorate([
     (0, class_validator_1.IsEmail)(),
     (0, class_validator_1.IsNotEmpty)(),
+    (0, swagger_1.ApiProperty)({
+        example: 'shinstarr@gmail.com',
+        description: '드라이버 이메일',
+        required: true
+    }),
     __metadata("design:type", String)
 ], SignupDriverDto.prototype, "driverEmail", void 0);
 exports.SignupDriverDto = SignupDriverDto;

@@ -19,6 +19,7 @@ const typeorm_1 = require("@nestjs/typeorm");
 const Driver_1 = require("../entities/Driver");
 const typeorm_2 = require("typeorm");
 const bcrypt = require("bcryptjs");
+const UnauthorizedRes = require("../common/response/unauthorized.401");
 let AuthService = class AuthService {
     constructor(driverRepository, jwtService) {
         this.driverRepository = driverRepository;
@@ -43,13 +44,7 @@ let AuthService = class AuthService {
             return { message: 'ok', code: 200, data: { accessToken } };
         }
         else {
-            throw new common_1.UnauthorizedException({
-                message: 'error',
-                errCode: 401,
-                data: {
-                    errMsg: '사용자를 찾을 수 없습니다'
-                }
-            });
+            throw new common_1.UnauthorizedException(UnauthorizedRes);
         }
     }
 };

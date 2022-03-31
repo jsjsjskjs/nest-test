@@ -9,30 +9,27 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.SigninDriverDto = void 0;
+exports.DriverUnauthorizedJwtDto = void 0;
 const swagger_1 = require("@nestjs/swagger");
-const class_validator_1 = require("class-validator");
-class SigninDriverDto {
+class DriverUnauthorizedJwtDto {
 }
 __decorate([
-    (0, class_validator_1.IsString)(),
-    (0, class_validator_1.IsNotEmpty)(),
     (0, swagger_1.ApiProperty)({
-        example: 'jsjsjskjs',
-        description: '드라이버 아이디',
-        required: true
+        example: 'error'
     }),
     __metadata("design:type", String)
-], SigninDriverDto.prototype, "driverName", void 0);
+], DriverUnauthorizedJwtDto.prototype, "message", void 0);
 __decorate([
-    (0, class_validator_1.IsString)(),
-    (0, class_validator_1.IsNotEmpty)(),
     (0, swagger_1.ApiProperty)({
-        example: '1234',
-        description: '드라이버 비밀번호',
-        required: true
+        example: 401
     }),
-    __metadata("design:type", String)
-], SigninDriverDto.prototype, "driverPassword", void 0);
-exports.SigninDriverDto = SigninDriverDto;
-//# sourceMappingURL=signin-driver.dto.js.map
+    __metadata("design:type", Number)
+], DriverUnauthorizedJwtDto.prototype, "errCode", void 0);
+__decorate([
+    (0, swagger_1.ApiProperty)({
+        example: { 'errMsg': '인증정보가 만료됐습니다' }
+    }),
+    __metadata("design:type", Object)
+], DriverUnauthorizedJwtDto.prototype, "data", void 0);
+exports.DriverUnauthorizedJwtDto = DriverUnauthorizedJwtDto;
+//# sourceMappingURL=driver.unauthorized.jwt.401.dto.js.map

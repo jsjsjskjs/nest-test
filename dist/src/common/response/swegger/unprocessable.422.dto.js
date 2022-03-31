@@ -9,30 +9,27 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.SigninDriverDto = void 0;
+exports.UnprocessableDto = void 0;
 const swagger_1 = require("@nestjs/swagger");
-const class_validator_1 = require("class-validator");
-class SigninDriverDto {
+class UnprocessableDto {
 }
 __decorate([
-    (0, class_validator_1.IsString)(),
-    (0, class_validator_1.IsNotEmpty)(),
     (0, swagger_1.ApiProperty)({
-        example: 'jsjsjskjs',
-        description: '드라이버 아이디',
-        required: true
+        example: 'error'
     }),
     __metadata("design:type", String)
-], SigninDriverDto.prototype, "driverName", void 0);
+], UnprocessableDto.prototype, "message", void 0);
 __decorate([
-    (0, class_validator_1.IsString)(),
-    (0, class_validator_1.IsNotEmpty)(),
     (0, swagger_1.ApiProperty)({
-        example: '1234',
-        description: '드라이버 비밀번호',
-        required: true
+        example: 422
     }),
-    __metadata("design:type", String)
-], SigninDriverDto.prototype, "driverPassword", void 0);
-exports.SigninDriverDto = SigninDriverDto;
-//# sourceMappingURL=signin-driver.dto.js.map
+    __metadata("design:type", Number)
+], UnprocessableDto.prototype, "errCode", void 0);
+__decorate([
+    (0, swagger_1.ApiProperty)({
+        example: { 'errMsg': '필요한 정보가 모두 또는 올바르게 입력되지 않음' }
+    }),
+    __metadata("design:type", Object)
+], UnprocessableDto.prototype, "data", void 0);
+exports.UnprocessableDto = UnprocessableDto;
+//# sourceMappingURL=unprocessable.422.dto.js.map
