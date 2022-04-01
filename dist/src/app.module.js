@@ -17,11 +17,15 @@ const app_service_1 = require("./app.service");
 const driver_module_1 = require("./driver/driver.module");
 const auth_module_1 = require("./auth/auth.module");
 const ORMCONFIG = require("../ormconfig");
+const EMAILCONFIG = require("../emailconfig");
+const mailer_1 = require("@nestjs-modules/mailer");
+const user_module_1 = require("./user/user.module");
 let AppModule = class AppModule {
 };
 AppModule = __decorate([
     (0, common_1.Module)({
         imports: [
+            mailer_1.MailerModule.forRoot(EMAILCONFIG),
             typeorm_1.TypeOrmModule.forRoot(ORMCONFIG),
             nest_morgan_1.MorganModule,
             config_1.ConfigModule.forRoot({
@@ -29,7 +33,8 @@ AppModule = __decorate([
                 ignoreEnvFile: process.env.NODE_ENV === 'production'
             }),
             driver_module_1.DriverModule,
-            auth_module_1.AuthModule
+            auth_module_1.AuthModule,
+            user_module_1.UserModule
         ],
         controllers: [app_controller_1.AppController],
         providers: [

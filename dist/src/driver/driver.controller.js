@@ -14,13 +14,21 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.DriverController = void 0;
 const common_1 = require("@nestjs/common");
+const passport_1 = require("@nestjs/passport");
 const swagger_1 = require("@nestjs/swagger");
+const get_driver_decorator_1 = require("../auth/get-driver.decorator");
 const confilct_409_dto_1 = require("../common/response/swegger/confilct.409.dto");
 const created_201_dto_1 = require("../common/response/swegger/created.201.dto");
+const driver_findid_ok_200_dto_1 = require("../common/response/swegger/driver.findid.ok.200.dto");
 const driver_signin_ok_200_dto_1 = require("../common/response/swegger/driver.signin.ok.200.dto");
 const driver_unauthorized_401_dto_1 = require("../common/response/swegger/driver.unauthorized.401.dto");
+const ok_200_swegger_dto_1 = require("../common/response/swegger/ok.200.swegger.dto");
 const unprocessable_422_dto_1 = require("../common/response/swegger/unprocessable.422.dto");
+const Driver_1 = require("../entities/Driver");
 const driver_service_1 = require("./driver.service");
+const findId_email_dto_1 = require("./dto/findId-email.dto");
+const findId_phone_dto_1 = require("./dto/findId-phone.dto");
+const findpw_email_dto_1 = require("./dto/findpw-email.dto");
 const signin_driver_dto_1 = require("./dto/signin-driver.dto");
 const signup_driver_dto_1 = require("./dto/signup-driver.dto");
 let DriverController = class DriverController {
@@ -32,6 +40,19 @@ let DriverController = class DriverController {
     }
     signinDriver(body) {
         return this.driverService.signinDriver(body.driverName, body.driverPassword);
+    }
+    findIdPhone(body) {
+        return this.driverService.findIdPhone(body.driverIdentity, body.driverPhone);
+    }
+    findIdEmail(body) {
+        return this.driverService.findIdEmail(body.driverIdentity, body.driverEmail);
+    }
+    findPwPhone() { }
+    findPwEmail(body) {
+        return this.driverService.findPwEmail(body.driverIdentity, body.driverName);
+    }
+    test(driver) {
+        console.log(driver);
     }
 };
 __decorate([
@@ -63,6 +84,68 @@ __decorate([
     __metadata("design:paramtypes", [signin_driver_dto_1.SigninDriverDto]),
     __metadata("design:returntype", void 0)
 ], DriverController.prototype, "signinDriver", null);
+__decorate([
+    (0, swagger_1.ApiOperation)({ summary: '아이디 찾기(핸드폰)' }),
+    (0, swagger_1.ApiResponse)({
+        status: 200,
+        description: '200 OK',
+        type: driver_findid_ok_200_dto_1.DriverFindIdOkDto
+    }),
+    (0, swagger_1.ApiResponse)({
+        status: 401,
+        description: '401 Unautorized',
+        type: driver_unauthorized_401_dto_1.DriverUnauthorizedDto
+    }),
+    (0, common_1.Post)('id-phone'),
+    (0, common_1.HttpCode)(200),
+    __param(0, (0, common_1.Body)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [findId_phone_dto_1.FindIdPhoneDto]),
+    __metadata("design:returntype", void 0)
+], DriverController.prototype, "findIdPhone", null);
+__decorate([
+    (0, swagger_1.ApiOperation)({ summary: '아이디 찾기(이메일)' }),
+    (0, swagger_1.ApiResponse)({
+        status: 200,
+        description: '200 OK',
+        type: driver_findid_ok_200_dto_1.DriverFindIdOkDto
+    }),
+    (0, swagger_1.ApiResponse)({
+        status: 401,
+        description: '401 Unautorized',
+        type: driver_unauthorized_401_dto_1.DriverUnauthorizedDto
+    }),
+    (0, common_1.Post)('id-email'),
+    (0, common_1.HttpCode)(200),
+    __param(0, (0, common_1.Body)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [findId_email_dto_1.FindIdEmailDto]),
+    __metadata("design:returntype", void 0)
+], DriverController.prototype, "findIdEmail", null);
+__decorate([
+    (0, swagger_1.ApiOperation)({ summary: '비밀번호 찾기(핸드폰)' }),
+    (0, common_1.Post)('pw-phone'),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", []),
+    __metadata("design:returntype", void 0)
+], DriverController.prototype, "findPwPhone", null);
+__decorate([
+    (0, swagger_1.ApiOperation)({ summary: '비밀번호 찾기(이메일)' }),
+    (0, swagger_1.ApiResponse)({ status: 200, description: '200 OK', type: ok_200_swegger_dto_1.OkDto }),
+    (0, common_1.Post)('pw-email'),
+    __param(0, (0, common_1.Body)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [findpw_email_dto_1.FindPwEmailDto]),
+    __metadata("design:returntype", void 0)
+], DriverController.prototype, "findPwEmail", null);
+__decorate([
+    (0, common_1.Post)('test'),
+    (0, common_1.UseGuards)((0, passport_1.AuthGuard)()),
+    __param(0, (0, get_driver_decorator_1.GetDriver)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Driver_1.Driver]),
+    __metadata("design:returntype", void 0)
+], DriverController.prototype, "test", null);
 DriverController = __decorate([
     (0, common_1.Controller)('driver'),
     __metadata("design:paramtypes", [driver_service_1.DriverService])

@@ -18,32 +18,44 @@ const passport_1 = require("@nestjs/passport");
 const typeorm_1 = require("@nestjs/typeorm");
 const passport_jwt_1 = require("passport-jwt");
 const Driver_1 = require("../entities/Driver");
+const User_1 = require("../entities/User");
 const typeorm_2 = require("typeorm");
 let JwtStrategy = class JwtStrategy extends (0, passport_1.PassportStrategy)(passport_jwt_1.Strategy) {
-    constructor(driverRepository) {
+    constructor(driverRepository, userRepository) {
         super({
             secretOrKey: process.env.ACCESS_SECRET,
             jwtFromRequest: passport_jwt_1.ExtractJwt.fromBodyField('token')
         });
         this.driverRepository = driverRepository;
+        this.userRepository = userRepository;
         this.logger = new common_1.Logger('jwtStrategy');
     }
     async validate(payload, done) {
-        const { driverName } = payload;
-        const driver = await this.driverRepository.findOne({
-            driver_name: driverName
+        const { driverName, userName } = payload;
+        if (driverName && !userName) {
+            const driver = await this.driverRepository.findOne({
+                driver_name: driverName
+            });
+            if (!driver) {
+                throw new common_1.UnauthorizedException();
+            }
+            return driver;
+        }
+        const user = await this.userRepository.findOne({
+            user_name: userName
         });
-        this.logger.log('payload check', payload, driver);
-        if (!driver) {
+        if (!user) {
             throw new common_1.UnauthorizedException();
         }
-        return driver;
+        return user;
     }
 };
 JwtStrategy = __decorate([
     (0, common_1.Injectable)(),
     __param(0, (0, typeorm_1.InjectRepository)(Driver_1.Driver)),
-    __metadata("design:paramtypes", [typeorm_2.Repository])
+    __param(1, (0, typeorm_1.InjectRepository)(User_1.User)),
+    __metadata("design:paramtypes", [typeorm_2.Repository,
+        typeorm_2.Repository])
 ], JwtStrategy);
 exports.JwtStrategy = JwtStrategy;
 //# sourceMappingURL=jwt.strategy.js.map

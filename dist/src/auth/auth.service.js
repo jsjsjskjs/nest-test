@@ -33,7 +33,7 @@ let AuthService = class AuthService {
         });
         return driver;
     }
-    async sendAccessToken(driverName, driverPassword) {
+    async sendAccessTokenDriver(driverName, driverPassword) {
         const driver = await this.findDriver(driverName);
         if (driver && (await bcrypt.compare(driverPassword, driver.driver_pw))) {
             const payload = { driverName };

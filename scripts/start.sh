@@ -12,5 +12,8 @@ export DATABASE_PORT=$(aws ssm get-parameters --region ap-northeast-2 --names DA
 export DATABASE_USER=$(aws ssm get-parameters --region ap-northeast-2 --names DATABASE_USER --query Parameters[0].Value | sed 's/"//g')
 export SWAGGER_USER=$(aws ssm get-parameters --region ap-northeast-2 --names SWAGGER_USER --query Parameters[0].Value | sed 's/"//g')
 export SWAGGER_PASSWORD=$(aws ssm get-parameters --region ap-northeast-2 --names SWAGGER_PASSWORD --query Parameters[0].Value | sed 's/"//g')
+export DEPLOY_ACCESS_KEY_ID=$(aws ssm get-parameters --region ap-northeast-2 --names DEPLOY_ACCESS_KEY_ID --query Parameters[0].Value | sed 's/"//g')
+export DEPLOY_SERECT_ACCESS_KEY=$(aws ssm get-parameters --region ap-northeast-2 --names DEPLOY_SERECT_ACCESS_KEY --query Parameters[0].Value | sed 's/"//g')
+export DEPLOY_REGION=$(aws ssm get-parameters --region ap-northeast-2 --names DEPLOY_REGION --query Parameters[0].Value | sed 's/"//g')
 
 authbind --deep pm2 start dist/src/main.js

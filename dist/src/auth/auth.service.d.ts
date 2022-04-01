@@ -7,7 +7,7 @@ export declare class AuthService {
     private logger;
     constructor(driverRepository: Repository<Driver>, jwtService: JwtService);
     findDriver(driverName: any): Promise<Driver>;
-    sendAccessToken(driverName: any, driverPassword: any): Promise<{
+    sendAccessTokenDriver(driverName: any, driverPassword: any): Promise<{
         message: string;
         code: number;
         data: {
