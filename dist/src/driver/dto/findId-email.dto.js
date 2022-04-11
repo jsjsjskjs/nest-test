@@ -18,7 +18,7 @@ __decorate([
     (0, class_validator_1.IsString)(),
     (0, class_validator_1.IsNotEmpty)(),
     (0, swagger_1.ApiProperty)({
-        example: '김재식',
+        example: '해피',
         description: '드라이버 이름',
         required: true
     }),
@@ -28,7 +28,7 @@ __decorate([
     (0, class_validator_1.IsEmail)(),
     (0, class_validator_1.IsNotEmpty)(),
     (0, swagger_1.ApiProperty)({
-        example: 'shinstarr@gmail.com',
+        example: 'happy@gmail.com',
         description: '드라이버 이메일',
         required: true
     }),

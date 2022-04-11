@@ -25,6 +25,7 @@ const mailer_1 = require("@nestjs-modules/mailer");
 const UnauthorizedRes = require("../common/response/unauthorized.401");
 const OkRes = require("../common/response/ok.200");
 const ServiceUnavailableRes = require("../common/response/service-unavailable.503");
+const aws_sdk_1 = require("aws-sdk");
 let DriverService = class DriverService {
     constructor(driverRepository, authService, mailerService) {
         this.driverRepository = driverRepository;
@@ -116,6 +117,18 @@ let DriverService = class DriverService {
             throw new common_1.UnauthorizedException(UnauthorizedRes);
         }
     }
+    async findPwPhone(driverIdentity, driverName) {
+        const driver = await this.driverRepository.findOne({
+            where: { driver_identity: driverIdentity, driver_name: driverName }
+        });
+        if (driver) {
+            this.test();
+            return OkRes;
+        }
+        else {
+            throw new common_1.UnauthorizedException(UnauthorizedRes);
+        }
+    }
     async generateRandomPassword() {
         const chars = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXTZabcdefghiklmnopqrstuvwxyz!@#$%^&*';
         const stringLength = 8;
@@ -164,6 +177,28 @@ let DriverService = class DriverService {
             this.logger.debug(`${e.message}`);
             this.logger.error('email 전송 실패');
             return false;
+        });
+    }
+    async test() {
+        const password = await this.generateRandomPassword();
+        aws_sdk_1.config.update({
+            region: 'us-west-1',
+            accessKeyId: process.env.DEPLOY_ACCESS_KEY_ID,
+            secretAccessKey: process.env.DEPLOY_SERECT_ACCESS_KEY
+        });
+        const params = {
+            Message: `Shinstarr App TEST MESSAGE | ${password}`,
+            PhoneNumber: '+8201056325968'
+        };
+        const publishTextPromise = new aws_sdk_1.SNS({ apiVersion: '2010-03-31' })
+            .publish(params)
+            .promise();
+        publishTextPromise
+            .then(function (data) {
+            console.log('MessageID is' + data.MessageId);
+        })
+            .catch(function (err) {
+            console.error(err, err.stack);
         });
     }
 };

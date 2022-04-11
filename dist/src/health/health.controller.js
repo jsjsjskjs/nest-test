@@ -9,27 +9,20 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.DriverUnauthorizedDto = void 0;
-const swagger_1 = require("@nestjs/swagger");
-class DriverUnauthorizedDto {
-}
+exports.HealthController = void 0;
+const common_1 = require("@nestjs/common");
+let HealthController = class HealthController {
+    healthcheck() { }
+};
 __decorate([
-    (0, swagger_1.ApiProperty)({
-        example: 'error'
-    }),
-    __metadata("design:type", String)
-], DriverUnauthorizedDto.prototype, "message", void 0);
-__decorate([
-    (0, swagger_1.ApiProperty)({
-        example: 401
-    }),
-    __metadata("design:type", Number)
-], DriverUnauthorizedDto.prototype, "errCode", void 0);
-__decorate([
-    (0, swagger_1.ApiProperty)({
-        example: { 'errMsg': '사용자를 찾을 수 없습니다' }
-    }),
-    __metadata("design:type", Object)
-], DriverUnauthorizedDto.prototype, "data", void 0);
-exports.DriverUnauthorizedDto = DriverUnauthorizedDto;
-//# sourceMappingURL=driver.unauthorized.401.dto.js.map
+    (0, common_1.Get)(),
+    (0, common_1.HttpCode)(200),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", []),
+    __metadata("design:returntype", void 0)
+], HealthController.prototype, "healthcheck", null);
+HealthController = __decorate([
+    (0, common_1.Controller)('health')
+], HealthController);
+exports.HealthController = HealthController;
+//# sourceMappingURL=health.controller.js.map

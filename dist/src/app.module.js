@@ -20,11 +20,20 @@ const ORMCONFIG = require("../ormconfig");
 const EMAILCONFIG = require("../emailconfig");
 const mailer_1 = require("@nestjs-modules/mailer");
 const user_module_1 = require("./user/user.module");
+const nest_aws_sdk_1 = require("nest-aws-sdk");
+const health_module_1 = require("./health/health.module");
 let AppModule = class AppModule {
 };
 AppModule = __decorate([
     (0, common_1.Module)({
         imports: [
+            nest_aws_sdk_1.AwsSdkModule.forRoot({
+                defaultServiceOptions: {
+                    accessKeyId: process.env.DEPLOY_ACCESS_KEY_ID,
+                    secretAccessKey: process.env.DEPLOY_SERECT_ACCESS_KEY,
+                    region: process.env.DEPLOY_REGION
+                }
+            }),
             mailer_1.MailerModule.forRoot(EMAILCONFIG),
             typeorm_1.TypeOrmModule.forRoot(ORMCONFIG),
             nest_morgan_1.MorganModule,
@@ -34,7 +43,8 @@ AppModule = __decorate([
             }),
             driver_module_1.DriverModule,
             auth_module_1.AuthModule,
-            user_module_1.UserModule
+            user_module_1.UserModule,
+            health_module_1.HealthModule
         ],
         controllers: [app_controller_1.AppController],
         providers: [

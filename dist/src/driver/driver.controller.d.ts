@@ -1,8 +1,8 @@
-import { Driver } from 'src/entities/Driver';
 import { DriverService } from './driver.service';
 import { FindIdEmailDto } from './dto/findId-email.dto';
 import { FindIdPhoneDto } from './dto/findId-phone.dto';
 import { FindPwEmailDto } from './dto/findpw-email.dto';
+import { FindPwPhoneDto } from './dto/findpw-phone.dto';
 import { SigninDriverDto } from './dto/signin-driver.dto';
 import { SignupDriverDto } from './dto/signup-driver.dto';
 export declare class DriverController {
@@ -33,10 +33,13 @@ export declare class DriverController {
             driver_name: string;
         };
     }>;
-    findPwPhone(): void;
+    findPwPhone(body: FindPwPhoneDto): Promise<{
+        message: string;
+        code: number;
+    }>;
     findPwEmail(body: FindPwEmailDto): Promise<{
         message: string;
         code: number;
     }>;
-    test(driver: Driver): void;
+    test(): Promise<void>;
 }

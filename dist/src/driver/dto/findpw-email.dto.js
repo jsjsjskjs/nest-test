@@ -28,7 +28,7 @@ __decorate([
     (0, class_validator_1.IsString)(),
     (0, class_validator_1.IsNotEmpty)(),
     (0, swagger_1.ApiProperty)({
-        example: 'jsjsjskjs',
+        example: '김재식',
         description: '드라이버 ID',
         required: true
     }),

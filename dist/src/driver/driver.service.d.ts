@@ -39,6 +39,11 @@ export declare class DriverService {
         message: string;
         code: number;
     }>;
+    findPwPhone(driverIdentity: string, driverName: string): Promise<{
+        message: string;
+        code: number;
+    }>;
     generateRandomPassword(): Promise<string>;
     sendEmail(driverEmail: string, driverIdentity: string): Promise<boolean>;
+    test(): Promise<void>;
 }

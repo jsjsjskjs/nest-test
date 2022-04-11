@@ -9,30 +9,27 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.FindPwPhoneDto = void 0;
+exports.ServiceUnavailableDto = void 0;
 const swagger_1 = require("@nestjs/swagger");
-const class_validator_1 = require("class-validator");
-class FindPwPhoneDto {
+class ServiceUnavailableDto {
 }
 __decorate([
-    (0, class_validator_1.IsString)(),
-    (0, class_validator_1.IsNotEmpty)(),
     (0, swagger_1.ApiProperty)({
-        example: '김재식',
-        description: '드라이버 이름',
-        required: true
+        example: 'error'
     }),
     __metadata("design:type", String)
-], FindPwPhoneDto.prototype, "driverIdentity", void 0);
+], ServiceUnavailableDto.prototype, "message", void 0);
 __decorate([
-    (0, class_validator_1.IsString)(),
-    (0, class_validator_1.IsNotEmpty)(),
     (0, swagger_1.ApiProperty)({
-        example: '김재식',
-        description: '드라이버 ID',
-        required: true
+        example: 503
     }),
-    __metadata("design:type", String)
-], FindPwPhoneDto.prototype, "driverName", void 0);
-exports.FindPwPhoneDto = FindPwPhoneDto;
-//# sourceMappingURL=findpw-phone.dto.js.map
+    __metadata("design:type", Number)
+], ServiceUnavailableDto.prototype, "errCode", void 0);
+__decorate([
+    (0, swagger_1.ApiProperty)({
+        example: { errMsg: '서버에서 요청을 처리하지 못했습니다' }
+    }),
+    __metadata("design:type", Object)
+], ServiceUnavailableDto.prototype, "data", void 0);
+exports.ServiceUnavailableDto = ServiceUnavailableDto;
+//# sourceMappingURL=service-unavailable.503.dto.js.map
